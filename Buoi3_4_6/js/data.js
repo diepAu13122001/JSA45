@@ -14,6 +14,8 @@
  * array
  */
 
+import { deleteItem, editItem } from "./main.js";
+
 let products = {
   data: [
     {
@@ -33,8 +35,7 @@ let products = {
     {
       productName: "LEVENTS® TRAVEL TEE/ LIGHT BROWN",
       price: "35",
-      image:
-        "https://product.hstatic.net/1000378196/product/z3466712209076_ae4321ce93b91a2070108a17a0654259__1__7f92c24d6bf748b5b765d90067d3377e_master.jpg",
+      image: "https://www.rothco.com/upload/product/product/6848-hr1.jpg",
     },
 
     {
@@ -82,7 +83,7 @@ let products = {
 };
 
 // Ham tao card (DOM)
-function createCard(name, price, img_link) {
+function createCard(name, price, img_link, id) {
   // card
   let card = document.createElement("div");
   card.classList.add("card");
@@ -119,12 +120,22 @@ function createCard(name, price, img_link) {
   edit_btn.classList.add("card-link");
   edit_btn.innerText = "Edit";
   edit_btn.href = "#";
+  // bat su kien cho nut edit
+  edit_btn.addEventListener("click", () => {
+    editItem(id);
+  });
+
   card_body_2.appendChild(edit_btn); // add child
   // delete button
   let del_btn = document.createElement("a");
   del_btn.classList.add("card-link");
   del_btn.innerText = "Delete";
   del_btn.href = "#";
+  // bat su kien cho nut del
+  del_btn.addEventListener("click", () => {
+    deleteItem(id);
+  });
+
   card_body_2.appendChild(del_btn); // add child
   card.appendChild(card_body_2); // add child
 
@@ -136,11 +147,11 @@ function getCardsBySearchKey(search_key) {
   // khai bao danh sach luu du lieu sau khi search
   let results = [];
   // lay du lieu tu local storage
-  cards = JSON.parse(localStorage.getItem("cards"));
+  let cards = JSON.parse(localStorage.getItem("cards"));
   if (cards.length) {
     for (const obj of cards) {
       if (obj.productName.includes(search_key)) {
-        console.log(obj);
+        // console.log(obj);
         results.push(obj);
       }
     }
@@ -159,13 +170,45 @@ function getCardsBySearchKey(search_key) {
 
 // luu du lieu vao local storage (khi moi chay web)
 if (!localStorage.getItem("cards")) {
+  // them thuoc tinh id cho obj card trong list
+  let list_card = [...products.data];
+  for (let id = 1; id < list_card.length; id++) {
+    list_card[id-1].id = id;
+  }
   // tao du lieu moi
-  localStorage.setItem("cards", JSON.stringify(products.data));
+  localStorage.setItem("cards", JSON.stringify(list_card));
 }
 
-// bat su kien cho thanh search
+// hien thi danh sach product khi moi load web
+const product_list = document.getElementById("product-list");
+const storage_cards = JSON.parse(localStorage.getItem("cards"));
+storage_cards.forEach((card) => {
+  const c = createCard(card.productName, card.price, card.image, card.id);
+  product_list.appendChild(c);
+});
 
+// bat su kien cho thanh search
 document.querySelector("#search-bar input").addEventListener("input", () => {
   const search_key = document.querySelector("#search-bar input").value;
-  getCardsBySearchKey(search_key.toUpperCase());
+  const search_list = getCardsBySearchKey(search_key.toUpperCase());
+  // kiem tra cac truong hop
+  if (search_list?.length) {
+    // xoa het du lieu cu
+    // cach 1
+    // product_list.innerHTML = "";
+
+    // cach 2
+    while (product_list.hasChildNodes()) {
+      product_list.removeChild(product_list.firstChild);
+    }
+
+    // hien thi du lieu ra man hinh
+    search_list.forEach((card) => {
+      const c = createCard(card.productName, card.price, card.image);
+      product_list.appendChild(c);
+    });
+  } else {
+    // khong co du lieu phu hop voi search key
+    alert("Khong co du lieu phu hop");
+  }
 });
