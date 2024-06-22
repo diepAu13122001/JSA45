@@ -212,3 +212,4 @@ document.querySelector("#search-bar input").addEventListener("input", () => {
     alert("Khong co du lieu phu hop");
   }
 });
+

@@ -14,6 +14,7 @@
     />
 
     <link rel="stylesheet" href="./css/main.css" />
+    <link rel="stylesheet" href="./css/popup.css" />
   </head>
   <body>
     <!-- navigator -->
@@ -64,6 +65,46 @@
 
       <!-- product list -->
       <div id="product-list"></div>
+
+      <!-- popup edit -->
+      <div class="popup" id="editPopup">
+        <div class="popup-header">Edit Product</div>
+        <div class="popup-body">
+          <form id="edit-form">
+            <label for="name">Product name</label>
+            <input
+              type="text"
+              placeholder="Product name"
+              id="name"
+              name="name"
+              required
+            />
+
+            <label for="price">Product price</label>
+            <input
+              type="number"
+              placeholder="Product price"
+              id="price"
+              name="price"
+              required
+            />
+            <label for="img">Product image link</label>
+            <input
+              type="text"
+              placeholder="Product image link"
+              id="img"
+              name="img"
+              required
+            />
+
+            <!-- button -->
+            <div class="form-actions">
+              <button type="reset" id="cancel-edit-btn">Cancel</button>
+              <button type="submit" id="cancel-save-btn">Save</button>
+            </div>
+          </form>
+        </div>
+      </div>
     </main>
 
     <!-- js files -->
