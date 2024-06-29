@@ -23,9 +23,11 @@ export function editItem(id) {
           e.price = product_price;
           e.image = product_img;
         }
+        return e;
       });
+      console.log(newList);
       // dat lai du lieu cho local storage
-      localStorage.setItem("cards", newList);
+      localStorage.setItem("cards", JSON.stringify(newList));
     }
   }
 
