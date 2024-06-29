@@ -1,5 +1,5 @@
 .popup {
-  /* display: none; */
+  display: none;
   position: fixed;
   /* make it center */
   left: 50%;

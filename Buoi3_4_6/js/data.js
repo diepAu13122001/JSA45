@@ -14,7 +14,8 @@
  * array
  */
 
-import { deleteItem, editItem } from "./main.js";
+import { cancelPopup, deleteItem, editItem, openPopup } from "./main.js";
+let current_id = 0;
 
 let products = {
   data: [
@@ -121,8 +122,10 @@ function createCard(name, price, img_link, id) {
   edit_btn.innerText = "Edit";
   edit_btn.href = "#";
   // bat su kien cho nut edit
-  edit_btn.addEventListener("click", () => {
-    editItem(id);
+  edit_btn.addEventListener("click", (e) => {
+    e.preventDefault()
+    openPopup(id);
+    current_id = id;
   });
 
   card_body_2.appendChild(edit_btn); // add child
@@ -213,3 +216,14 @@ document.querySelector("#search-bar input").addEventListener("input", () => {
   }
 });
 
+
+// Set event cho button cancel trong phan popup
+document.getElementById('cancel-edit-btn').onclick = () => {
+  cancelPopup();
+}
+
+
+// Set event cho button event trong phan popup
+document.getElementById('cancel-save-btn').onclick = () => {
+  editItem(current_id);
+}

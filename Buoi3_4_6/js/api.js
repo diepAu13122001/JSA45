@@ -45,7 +45,7 @@ const promise1 = new Promise((resolve, reject) => {
 
   if (condition) {
     setTimeout(() => {
-      resolve("promise 1"); // data
+      resolve({data: "data"}); // data
     }, 0);
   } else {
     reject("error");
