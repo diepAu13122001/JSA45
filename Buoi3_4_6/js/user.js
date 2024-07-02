@@ -8,6 +8,8 @@ async function get_users(limit) {
 }
 
 function renderUserList(list, container) {
+  // xoa het danh sach cu => chen danh sach moi khong bi lap lai
+  container.innerHTML = '';
   list.forEach((element) => {
     // create row element for list
     const row = document.createElement("tr");
@@ -71,5 +73,10 @@ function findUserByName() {
     // render data cho man hinh
     document.querySelector("#user-list tbody").innerHTML = ``;
     renderUserList(search_data, document.querySelector("#user-list tbody"));
+  } else {
+    renderUserList(
+      JSON.parse(localStorage.getItem("users")),
+      document.querySelector("#user-list tbody")
+    );
   }
 }

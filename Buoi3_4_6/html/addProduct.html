@@ -13,38 +13,43 @@
       crossorigin="anonymous"
     />
 
-    <link rel="stylesheet" href="../css/addform.css">
-
+    <link rel="stylesheet" href="../css/addform.css" />
   </head>
   <body>
     <!-- Form add -->
     <form>
-      <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">Email address</label>
-        <input
-          type="email"
-          class="form-control"
-          id="exampleInputEmail1"
-          aria-describedby="emailHelp"
-        />
-        <div id="emailHelp" class="form-text">
-          We'll never share your email with anyone else.
+      <form>
+        <div class="mb-3">
+          <label for="productName" class="form-label">Product Name</label>
+          <input type="text" class="form-control" id="productName" required />
         </div>
-      </div>
-      <div class="mb-3">
-        <label for="exampleInputPassword1" class="form-label">Password</label>
-        <input
-          type="password"
-          class="form-control"
-          id="exampleInputPassword1"
-        />
-      </div>
-      <div class="mb-3 form-check">
-        <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-        <label class="form-check-label" for="exampleCheck1">Check me out</label>
-      </div>
-      <button type="button" class="btn btn-secondary">Secondary</button>
-      <button type="submit" class="btn btn-primary">Submit</button>
+        <div class="mb-3">
+          <label for="productPrice" class="form-label">Product Price</label>
+          <input
+            type="number"
+            class="form-control"
+            id="productPrice"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="ProductImage" class="form-label">Product Image</label>
+          <input type="text" class="form-control" id="ProductImage" required />
+          <img
+            src=""
+            class="img-thumbnail"
+            alt="..."
+            style="margin-top: 20px"
+            id="ProductImage-show"
+          />
+        </div>
+        <button type="reset" id="home-btn" class="btn btn-secondary">
+          Cancel
+        </button>
+        <button type="submit" id="create-product-btn" class="btn btn-primary">
+          Submit
+        </button>
+      </form>
     </form>
 
     <!-- js files -->
@@ -62,5 +67,14 @@
       src="https://kit.fontawesome.com/08c4cc6c98.js"
       crossorigin="anonymous"
     ></script>
+    <script src="../js/addData.js"></script>
+
+    <script>
+      // moi lan thay doi link => hinh cung se thay doi theo
+      document.getElementById("ProductImage").addEventListener("change", () => {
+        document.getElementById("ProductImage-show").src =
+          document.getElementById("ProductImage").value;
+      });
+    </script>
   </body>
 </html>
